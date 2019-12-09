@@ -138,7 +138,7 @@ code {
   background-color: #f8f8f8;
 }
 .outer {
-  max-width: 1320px;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -1769,65 +1769,101 @@ ol.toc {
 .widget-title {
   margin-bottom: 0;
 }
+font-size: 17px,
 .widget {
   padding: 15px 5px;
 }
+font-size: 17px a,
 .widget a {
   color: #777;
   text-decoration: none;
 }
+font-size: 17px a:hover,
 .widget a:hover {
   color: #333;
 }
+font-size: 17px ul ul,
 .widget ul ul,
+font-size: 17px ol ul,
 .widget ol ul,
+font-size: 17px dl ul,
 .widget dl ul,
+font-size: 17px ul ol,
 .widget ul ol,
+font-size: 17px ol ol,
 .widget ol ol,
+font-size: 17px dl ol,
 .widget dl ol,
+font-size: 17px ul dl,
 .widget ul dl,
+font-size: 17px ol dl,
 .widget ol dl,
+font-size: 17px dl dl,
 .widget dl dl {
   margin-left: 15px;
   list-style: disc;
 }
+font-size: 17px ul,
 .widget ul,
+font-size: 17px ol,
 .widget ol {
   list-style: none;
 }
+font-size: 17px ul li,
 .widget ul li,
+font-size: 17px ol li,
 .widget ol li,
+font-size: 17px ul .category-list-child,
 .widget ul .category-list-child,
+font-size: 17px ol .category-list-child,
 .widget ol .category-list-child {
   padding: 10px 0;
-  font-size: 14px;
+  font-size: 16px;
   border-bottom: 1px solid border-color;
 }
+font-size: 17px ul li a,
 .widget ul li a,
+font-size: 17px ol li a,
 .widget ol li a,
+font-size: 17px ul .category-list-child a,
 .widget ul .category-list-child a,
+font-size: 17px ol .category-list-child a,
 .widget ol .category-list-child a {
-  color: #777;
+  color: #009688;
 }
+font-size: 17px ul ul,
 .widget ul ul,
+font-size: 17px ol ul,
 .widget ol ul,
+font-size: 17px ul ol,
 .widget ul ol,
+font-size: 17px ol ol,
 .widget ol ol {
   list-style: none;
 }
+font-size: 17px ul ul li,
 .widget ul ul li,
+font-size: 17px ol ul li,
 .widget ol ul li,
+font-size: 17px ul ol li,
 .widget ul ol li,
+font-size: 17px ol ol li,
 .widget ol ol li {
   border: none;
 }
+font-size: 17px ul ul li:last-child,
 .widget ul ul li:last-child,
+font-size: 17px ol ul li:last-child,
 .widget ol ul li:last-child,
+font-size: 17px ul ol li:last-child,
 .widget ul ol li:last-child,
+font-size: 17px ol ol li:last-child,
 .widget ol ol li:last-child {
   padding-bottom: 0px;
 }
+font-size: 17px ul:not(#recent-post) li a:before,
 .widget ul:not(#recent-post) li a:before,
+font-size: 17px ol:not(#recent-post) li a:before,
 .widget ol:not(#recent-post) li a:before {
   color: #ccc;
   content: "\f0da";
@@ -1839,7 +1875,9 @@ ol.toc {
   -ms-transition: 0.2s ease;
   transition: 0.2s ease;
 }
+font-size: 17px ul:not(#recent-post) li a:hover:before,
 .widget ul:not(#recent-post) li a:hover:before,
+font-size: 17px ol:not(#recent-post) li a:hover:before,
 .widget ol:not(#recent-post) li a:hover:before {
   color: #333;
 }
