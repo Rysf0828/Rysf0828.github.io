@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="胡宇义|个人博客">
 <meta property="og:description" content="项目结构##本文通过一个最简单的servlet demo来介绍，采用的是maven进行管理： 1234567891011121314151617181920.├── pom.xml├── src    ├── main    │   ├── java    │   │   └── com    │   │       └── cnhachiman    │   │           ├── fi">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-17T07:20:56.860Z">
+<meta property="og:updated_time" content="2019-12-17T07:24:31.387Z">
 <meta name="twitter:card" content="summary">
     
 
@@ -256,6 +256,8 @@
 
 <p><strong>用maven构建项目时候resource目录就是默认的classpath，src路径下的文件在编译后会放到WEB-INF/classes路径下，也是classpath。两个文件夹内容打包过后都会放到classes下</strong></p>
 <p>下面是我的DemoServlet类，需要注意的是<strong>重写的service方法的入参是HttpServletRequest和HttpServletResponse</strong></p>
+<a id="more"></a>
+
 <p>另外最近看到getResourceAsStream(String path)这个方法，也在这里记录下：</p>
 <p>在Springmvc源码里面有看到这样的代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// org.springframework.web.context.ContextLoader</span><br><span class="line">	</span><br><span class="line">	private static final String DEFAULT_STRATEGIES_PATH = &quot;ContextLoader.properties&quot;;</span><br><span class="line">	private static final Properties defaultStrategies;</span><br><span class="line"></span><br><span class="line">	static &#123;</span><br><span class="line">		try &#123;</span><br><span class="line">			ClassPathResource resource = new ClassPathResource(DEFAULT_STRATEGIES_PATH, ContextLoader.class);</span><br><span class="line">			defaultStrategies = PropertiesLoaderUtils.loadProperties(resource);</span><br><span class="line">		&#125;</span><br><span class="line">		catch (IOException ex) &#123;</span><br><span class="line">			throw new IllegalStateException(&quot;Could not load &apos;ContextLoader.properties&apos;: &quot; + ex.getMessage());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
@@ -291,7 +293,7 @@
 
 </div>
 
-    <a data-url="https://rysf0828.github.io/2019/12/17/servlet-demo/" data-id="ck49jgdw20002q4a4aquo0qju" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://rysf0828.github.io/2019/12/17/servlet-demo/" data-id="ck49jkyu00002r8a41hmhftjv" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding

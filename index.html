@@ -274,7 +274,7 @@
 
 </div>
 
-    <a data-url="https://rysf0828.github.io/2019/12/17/Typora-grammar/" data-id="ck49jgdss0000q4a461o7hqah" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://rysf0828.github.io/2019/12/17/Typora-grammar/" data-id="ck49jkytt0000r8a4hla7abbp" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -399,8 +399,7 @@
         
         <div class="article-entry" itemprop="articleBody">
         
-            
-            <h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构##"></a>项目结构##</h2><p>本文通过一个最简单的servlet demo来介绍，采用的是maven进行管理：</p>
+            <p><h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构##"></a>项目结构##</h2><p>本文通过一个最简单的servlet demo来介绍，采用的是maven进行管理：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── pom.xml</span><br><span class="line">├── src</span><br><span class="line">    ├── main</span><br><span class="line">    │   ├── java</span><br><span class="line">    │   │   └── com</span><br><span class="line">    │   │       └── cnhachiman</span><br><span class="line">    │   │           ├── filter</span><br><span class="line">    │   │           └── servlet</span><br><span class="line">    │   │               └── DemoServlet.java</span><br><span class="line">    │   ├── resources</span><br><span class="line">    │   │   └── com</span><br><span class="line">    │   │       └── cnhachiman</span><br><span class="line">    │   │           └── servlet</span><br><span class="line">    │   │               └── demo.properties</span><br><span class="line">    │   └── webapp  #这里在pom中设置为项目的sourceDirectory</span><br><span class="line">    │       └── WEB-INF</span><br><span class="line">    │           └── web.xml</span><br><span class="line">    └── test</span><br><span class="line">        └── java</span><br></pre></td></tr></table></figure>
 
 <p>项目打包的maven插件：</p>
@@ -410,33 +409,10 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── META-INF</span><br><span class="line">└── WEB-INF</span><br><span class="line">    ├── lib   #这里放的依赖的jar包</span><br><span class="line">    ├── web.xml     </span><br><span class="line">    └── classes</span><br><span class="line">        └── com</span><br><span class="line">            └── cnhachiman</span><br><span class="line">                └── filter</span><br><span class="line">                └── servlet</span><br><span class="line">                    ├── DemoServlet.class</span><br><span class="line">                    └── demo.properties</span><br></pre></td></tr></table></figure>
 
 <p><strong>用maven构建项目时候resource目录就是默认的classpath，src路径下的文件在编译后会放到WEB-INF/classes路径下，也是classpath。两个文件夹内容打包过后都会放到classes下</strong></p>
-<p>下面是我的DemoServlet类，需要注意的是<strong>重写的service方法的入参是HttpServletRequest和HttpServletResponse</strong></p>
-<p>另外最近看到getResourceAsStream(String path)这个方法，也在这里记录下：</p>
-<p>在Springmvc源码里面有看到这样的代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// org.springframework.web.context.ContextLoader</span><br><span class="line">	</span><br><span class="line">	private static final String DEFAULT_STRATEGIES_PATH = &quot;ContextLoader.properties&quot;;</span><br><span class="line">	private static final Properties defaultStrategies;</span><br><span class="line"></span><br><span class="line">	static &#123;</span><br><span class="line">		try &#123;</span><br><span class="line">			ClassPathResource resource = new ClassPathResource(DEFAULT_STRATEGIES_PATH, ContextLoader.class);</span><br><span class="line">			defaultStrategies = PropertiesLoaderUtils.loadProperties(resource);</span><br><span class="line">		&#125;</span><br><span class="line">		catch (IOException ex) &#123;</span><br><span class="line">			throw new IllegalStateException(&quot;Could not load &apos;ContextLoader.properties&apos;: &quot; + ex.getMessage());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-
-<p>点进去发现了这个方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public InputStream getInputStream() throws IOException &#123;</span><br><span class="line">		InputStream is;</span><br><span class="line">		if (this.clazz != null) &#123;</span><br><span class="line">			is = this.clazz.getResourceAsStream(this.path);</span><br><span class="line">		&#125;</span><br><span class="line">		else if (this.classLoader != null) &#123;</span><br><span class="line">			is = this.classLoader.getResourceAsStream(this.path);</span><br><span class="line">		&#125;</span><br><span class="line">		else &#123;</span><br><span class="line">			is = ClassLoader.getSystemResourceAsStream(this.path);</span><br><span class="line">		&#125;</span><br><span class="line">		if (is == null) &#123;</span><br><span class="line">			throw new FileNotFoundException(getDescription() + &quot; cannot be opened because it does not exist&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		return is;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>这里容易发现上面代码实际执行方法是：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Properties props = new Properties();</span><br><span class="line">InputStream is;</span><br><span class="line">is = this.clazz.getResourceAsStream(&quot;ContextLoader.properties&quot;);</span><br><span class="line">props.load(is);</span><br><span class="line">defaultStrategies=props;</span><br></pre></td></tr></table></figure>
-
-<p>发现在<code>resources\org\pringframework\web\context</code>下存在<code>ContextLoader.properties</code>,其中设置了默认ApplicationContext:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.web.context.WebApplicationContext=org.springframework.web.context.support.XmlWebApplicationContext</span><br></pre></td></tr></table></figure>
-
-
-
-<p>最后整理下<a href="https://www.cnblogs.com/macwhirr/p/8116583.html" target="_blank" rel="noopener">getResourceAsStream的用法</a>，以及<a href="https://www.cnblogs.com/dingyingsi/p/6055845.html" target="_blank" rel="noopener">ClassLoader.getSystemResourceAsStream()用法</a>。</p>
-<ul>
-<li>m.class.getResourceAsStream(String path)   <ul>
-<li>path 不以’/‘开头时默认是从此类所在的包下取资源</li>
-<li>path以’/‘开头则是从ClassPath根下获取</li>
-</ul>
-</li>
-<li>m.class.getClassLoader().getResourceAsStream(String path)默认从classpath根下获取，path不能以’/‘开头</li>
-<li>ClassLoader.getSystemResourceAsStream(String path)与m.class.getResourceAsStream(String path)的第二种方式一致，但是入参路径少了’/‘</li>
-</ul>
-
+<p>下面是我的DemoServlet类，需要注意的是<strong>重写的service方法的入参是HttpServletRequest和HttpServletResponse</strong></p></p>
+            <p class="article-more-link">
+                <a href="/2019/12/17/servlet-demo/#more">查看更多</a>
+            </p>
         
         </div>
         <footer class="article-footer">
@@ -446,7 +422,7 @@
 
 </div>
 
-    <a data-url="https://rysf0828.github.io/2019/12/17/servlet-demo/" data-id="ck49jgdw20002q4a4aquo0qju" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://rysf0828.github.io/2019/12/17/servlet-demo/" data-id="ck49jkyu00002r8a41hmhftjv" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -571,8 +547,7 @@
         
         <div class="article-entry" itemprop="articleBody">
         
-            
-            <p>本文是在网上的资料和自己实践的情况下总结的，特此记录下来</p>
+            <p><p>本文是在网上的资料和自己实践的情况下总结的，特此记录下来</p>
 <h2 id="服务器环境搭建"><a href="#服务器环境搭建" class="headerlink" title="服务器环境搭建"></a>服务器环境搭建</h2><h3 id="安装Nginx"><a href="#安装Nginx" class="headerlink" title="安装Nginx"></a>安装Nginx</h3><p>使用yum安装nginx，yum命令使用详见：<a href="http://c.biancheng.net/view/2931.html" target="_blank" rel="noopener">yum源配置</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y nginx</span><br></pre></td></tr></table></figure>
 
@@ -600,52 +575,10 @@
 
 <ul>
 <li>检查安装信息:<code>git --version</code></li>
-</ul>
-<h4 id="创建Git用户并设置密码"><a href="#创建Git用户并设置密码" class="headerlink" title="创建Git用户并设置密码"></a>创建Git用户并设置密码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">adduser git</span><br><span class="line">#设置git密码，需要root权限</span><br><span class="line">sudo passwd git</span><br><span class="line">chmod 740 /etc/sudoers</span><br><span class="line">vim /etc/sudoers</span><br></pre></td></tr></table></figure>
-
-<p>找到以下内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">## Allow root to run any commands anywhere</span><br><span class="line">root    ALL=(ALL)     ALL</span><br></pre></td></tr></table></figure>
-
-<p>在下面添加一行，为git用户添加权限(这里其实不知道为什么这么做，留待后面了解下linux的这个文件啥作用)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git     ALL=(ALL)       ALL</span><br></pre></td></tr></table></figure>
-
-<p>保存退出后修改回文件权限:<code>chmod 400 /etc/sudoers</code></p>
-<h4 id="git服务器打开RSA认证"><a href="#git服务器打开RSA认证" class="headerlink" title="git服务器打开RSA认证"></a>git服务器打开RSA认证</h4><p>编辑文件:<code>vim /etc/ssh/sshd_config</code></p>
-<p>在sshd_config中开启以下几项：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RSAAuthentication yes</span><br><span class="line">PubkeyAuthentication yes</span><br><span class="line">AuthorizedKeysFile  .ssh/authorized_keys</span><br></pre></td></tr></table></figure>
-
-<h4 id="配置ssh免密登录"><a href="#配置ssh免密登录" class="headerlink" title="配置ssh免密登录"></a>配置ssh免密登录</h4><p>切换至git用户，创建 ~/.ssh 文件夹和 ~/.ssh/authorized_keys 文件，并赋予相应的权限</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">su git</span><br><span class="line">mkdir ~/.ssh</span><br><span class="line">vim ~/.ssh/authorized_keys</span><br><span class="line">#打开当前电脑登录用户文件夹下.ssh/id_rsa.pub文件,将公钥内容复制粘贴到服务器authorized_keys</span><br><span class="line">chmod 600 ~/.ssh/authorzied_keys</span><br><span class="line">chmod 700 ~/.ssh</span><br></pre></td></tr></table></figure>
-
-<p>使用ssh命令测试是否可以免密登录<code>ssh git@serverip</code></p>
-<h4 id="创建Git仓库"><a href="#创建Git仓库" class="headerlink" title="创建Git仓库"></a>创建Git仓库</h4><p>执行命令：<code>sudo git init --bare hexo.git</code></p>
-<ul>
-<li><p>使用–bare 参数，Git 就会创建一个裸仓库，裸仓库没有工作区，我们不会在裸仓库上进行操作，它只为共享而存在。 </p>
-<p>改变 hexo.git 目录的拥有者为git用户：<code>sudo chown -R git:git hexo.git</code> </p>
-</li>
-</ul>
-<h4 id="配置钩子"><a href="#配置钩子" class="headerlink" title="配置钩子"></a>配置钩子</h4><p>在 <code>hexo.git/hooks</code> 目录下新建一个 <code>post-receive</code> 文件，进入<code>cd /home/git/hexo.git/hooks/</code>，编辑这个文件<code>vim post-receive</code><br> 在 <code>post-receive</code> 文件中写入如下内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">git --work-tree=/usr/share/nginx/blog --git-dir=/home/git/hexo.git checkout -f</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>设置这个文件的可执行权限：<code>sudo chmod +x post-receive</code></li>
-<li><code>usr/share/nginx/blog</code>需要换成自己的部署目录，本文使用的<code>yum</code>命令安装的nginx，默认的html文件夹是<code>/usr/share/nginx/html</code>，我的博客改成了<code>/usr/share/nginx/blog</code>。<strong>这样每次hexo生成html文件就会自动提交到服务器上，最后到nginx文件夹下</strong></li>
-</ul>
-<h4 id="Git用户禁用shell登录"><a href="#Git用户禁用shell登录" class="headerlink" title="Git用户禁用shell登录"></a>Git用户禁用shell登录</h4><p> 出于安全考虑，git用户不允许登录shell，这可以通过编辑<code>/etc/passwd</code>文件完成,这里参考的是：<a href="https://www.liaoxuefeng.com/wiki/896043488029600/899998870925664" target="_blank" rel="noopener">廖雪峰的Git教程</a>,，但是奇怪的是之后使用ssh登录之后打印了:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fatal: Interactive git shell is not enabled.</span><br><span class="line">hint: ~/git-shell-commands should exist and have read and execute access.</span><br></pre></td></tr></table></figure>
-
-<p>看字面意思是少了git-shell-commands，最后还是在<a href="https://www.liaoxuefeng.com/discuss/969956160874304/1033630472207360" target="_blank" rel="noopener">评论</a>里面解决了问题,代码如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ su git</span><br><span class="line">$ chsh -s /usr/bin/git-shell</span><br><span class="line">$ mkdir $HOME/git-shell-commands</span><br><span class="line">$ cat &gt;$HOME/git-shell-commands/no-interactive-login &lt;&lt;\EOF</span><br><span class="line"></span><br><span class="line">printf &apos;%s\n&apos; &quot;Hi $USER! You&apos;ve successfully authenticated, but I do not&quot;</span><br><span class="line">printf &apos;%s\n&apos; &quot;provide interactive shell access.&quot;</span><br><span class="line">exit 128</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">$ chmod +x $HOME/git-shell-commands/no-interactive-login</span><br></pre></td></tr></table></figure>
-
-<p>需要注意的是这里修改之后文件:<code>git:x:1000:1000::/home/git:/usr/bin/git-shell</code>，前面是<code>home/git</code>,因此<code>myBlog/_config.yml</code>配置文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo:</span><br><span class="line">    github: git@47.103.73.117:hexo.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>Hexo部署在阿里云服务器上:<a href="https://www.jianshu.com/p/e1ccd49b4e5d" target="_blank" rel="noopener">https://www.jianshu.com/p/e1ccd49b4e5d</a></p>
-
+</ul></p>
+            <p class="article-more-link">
+                <a href="/2019/12/17/hexo-deploy/#more">查看更多</a>
+            </p>
         
         </div>
         <footer class="article-footer">
@@ -655,7 +588,7 @@
 
 </div>
 
-    <a data-url="https://rysf0828.github.io/2019/12/17/hexo-deploy/" data-id="ck49jgdw90006q4a4gfmr2amu" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+    <a data-url="https://rysf0828.github.io/2019/12/17/hexo-deploy/" data-id="ck49jkyu60006r8a4b9j35i7t" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
